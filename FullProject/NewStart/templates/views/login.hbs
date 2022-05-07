@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {{>header}}
+    {{>style}}
+</head>
+
+<body>
+
+    {{>navbar}}
+
+    <form method="post" id="form_id" name="myform">
+        <section class="vh-100">
+            <div class="container py-5">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                        <div class="card shadow-2-strong border-sty"
+                            style="border-radius: 1rem; background-color:black;">
+                            <div class="card-body p-5 text-center">
+                                <h3 class="mb-5 link">Sign in</h3>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label link" for="typeEmailX-2">Email</label>
+                                    <input type="email" id="email" class="form-control form-control-lg" name="email"
+                                        autocomplete="off" required="required" />
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label link" for="typePasswordX-2">Password</label>
+                                    <input type="password" id="password" class="form-control form-control-lg"
+                                        name="password" autocomplete="off" required="required" />
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label>Set Form Action :</label>
+                                    <select id="form_action" onChange="select_change()">
+                                        <option value="">--- Set Form Action ---</option>
+                                        <option value="loginUser">UserLogin</option>
+                                        <option value="loginOwner">OwnerLogin</option>
+                                    </select>
+                                </div>
+
+                                <input type="button" value="Login" class="btn btn-success btn-lg btn-block "
+                                    onclick="myfunction()" />
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+    <script>
+        function select_change() {
+            var z = document.getElementById("form_action").selectedIndex;
+            var z1 = document.getElementsByTagName("option")[z].value;
+            alert("Form action changed to " + z1);
+        }
+        function myfunction() {
+            if (validation()) {
+                // Calling Validation function.
+                //select option value from select tag and storing it in a variable.
+                var x = document.getElementById("form_action").selectedIndex;
+                var action = document.getElementsByTagName("option")[x].value;
+                if (action !== "") {
+                    document.getElementById("form_id").action = action;
+                    document.getElementById("form_id").submit();
+                } else {
+                    alert("Please set form action");
+                }
+            }
+        }
+        // Name and Email validation Function.
+        function validation() {
+            var password = document.getElementById("password").value;
+            var email = document.getElementById("email").value;
+            if (password === '' || email === '') {
+                alert("Please fill all fields...!!!!!!");
+                return false;
+            } else if (!(email).match(/\S+@\S+\.\S+/)) {
+                alert("Invalid Email...!!!!!!");
+                return false;
+            } else {
+                return true;
+            }
+        }
+    </script>
+
+
+    {{>script}}
+
+    {{>footer}}
+</body>
+
+
+</html>
